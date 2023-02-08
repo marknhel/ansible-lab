@@ -1,0 +1,11 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: install basic progs
+    ansible.builtin.apt:
+      pkg:
+      - wireguard-tools
+      - rsyslog
+      - logrotate
+      - resolvconf

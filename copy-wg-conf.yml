@@ -1,0 +1,70 @@
+---
+#- hosts: admin
+#  become: yes
+#  tasks:
+#  - name: Copy wg config to admin
+#    ansible.builtin.copy:
+#      src: /home/user/docs/ansible/wg/admin/admin.conf
+#      dest: /etc/wireguard/wg0.conf
+#
+#- hosts: ci
+#  become: yes
+#  tasks:
+#  - name: Copy wg config to ci
+#    ansible.builtin.copy:
+#      src: /home/user/docs/ansible/wg/ci/ci.conf
+#      dest: /etc/wireguard/wg0.conf
+#
+#- hosts: db
+#  become: yes
+#  tasks:
+#  - name: Copy wg config to db
+#    ansible.builtin.copy:
+#      src: /home/user/docs/ansible/wg/db/db.conf
+#      dest: /etc/wireguard/wg0.conf
+#
+#- hosts: lb
+#  become: yes
+#  tasks:
+#  - name: Copy wg config to lb
+#    ansible.builtin.copy:
+#      src: /home/user/docs/ansible/wg/lb/lb.conf
+#      dest: /etc/wireguard/wg0.conf
+#
+#- hosts: u1
+#  become: yes
+#  tasks:
+#  - name: Copy wg config to u1
+#    ansible.builtin.copy:
+#      src: /home/user/docs/ansible/wg/app1/app1.conf
+#      dest: /etc/wireguard/wg0.conf
+#
+#- hosts: log
+#  become: yes
+#  tasks:
+#  - name: Copy wg config to log
+#    ansible.builtin.copy:
+#      src: /home/user/docs/ansible/wg/log/log.conf
+#      dest: /etc/wireguard/wg0.conf
+#
+#- hosts: u2
+#  become: yes
+#  tasks:
+#  - name: Copy wg config to u2
+#    ansible.builtin.copy:
+#      src: /home/user/docs/ansible/wg/app2/app2.conf
+#      dest: /etc/wireguard/wg0.conf
+#
+#- hosts: u3
+#  become: yes
+#  tasks:
+#  - name: Copy wg config to u3
+#    ansible.builtin.copy:
+#      src: /home/user/docs/ansible/wg/app3/app3.conf
+#      dest: /etc/wireguard/wg0.conf
+
+- hosts: all
+  become: yes
+  tasks:
+  - name: Enable all wireguard interfaces
+    command: /usr/bin/systemctl restart wg-quick@wg0

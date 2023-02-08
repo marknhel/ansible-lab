@@ -1,0 +1,19 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: Copy outlog-file to all
+    ansible.builtin.copy:
+      src: /home/user/docs/ansible/confs/outlog.conf
+      dest: /etc/rsyslog.d/outlog.conf
+
+  - name: Copy outlog-file to all
+    ansible.builtin.copy:
+      src: /home/user/docs/ansible/confs/rsyslog.conf
+      dest: /etc/rsyslog.conf
+
+- hosts: all
+  become: yes
+  tasks:
+  - name: Restart rsyslog service
+    command: /usr/bin/systemctl restart rsyslog

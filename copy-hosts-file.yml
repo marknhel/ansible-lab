@@ -1,0 +1,8 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: Copy hosts file to All
+    ansible.builtin.copy:
+      src: /home/user/docs/ansible/hosts
+      dest: /home/ubuntu/hosts
