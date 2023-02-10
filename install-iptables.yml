@@ -1,0 +1,23 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+
+    #  - name: Installing iptables
+    #    ansible.builtin.apt:
+    #      pkg:
+    #      - iptables-persistent
+    #
+    #  - name: Enabling iptables Service
+    #    ansible.builtin.systemd:
+    #      name: iptables
+    #      enabled: true
+    #      state: started
+
+  - name: Copy iptables Script
+    ansible.builtin.copy:
+      src: /home/user/docs/ansible/confs/rules.v4
+      dest: /etc/iptables/rules.v4
+
+  - name: Implement the iptables Rules
+    command: /usr/sbin/iptables-restore /etc/iptables/rules.v4

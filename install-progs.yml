@@ -2,10 +2,11 @@
 - hosts: all
   become: yes
   tasks:
-  - name: install basic progs
+  - name: Installing Basic Programs
     ansible.builtin.apt:
       pkg:
       - wireguard-tools
       - rsyslog
       - logrotate
       - resolvconf
+      - net-tools

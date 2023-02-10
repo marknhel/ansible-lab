@@ -1,0 +1,58 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+  - name: Installing Prometheus Node Exporter
+    ansible.builtin.apt:
+      pkg:
+      - prometheus-node-exporter
+
+  - name: Enabling Prometheus Node Exporter Service
+    command: /usr/bin/systemctl enable --now prometheus-node-exporter
+
+- hosts: admin
+  become: yes
+  tasks:
+  - name: Installing Prometheus, Prometheus Alert Manager (apt)
+    ansible.builtin.apt:
+      pkg:
+      - prometheus
+      - prometheus-alertmanager
+
+  - name: Copying Promethues Configuration
+    ansible.builtin.copy:
+      src: /home/user/docs/ansible/confs/prometheus.yml
+      dest: /etc/prometheus/prometheus.yml
+
+  - name: Copying Alert Manager Configuration
+    ansible.builtin.copy:
+      src: /home/user/docs/ansible/confs/alertmanager.yml
+      dest: /etc/prometheus/alertmanager.yml
+
+  - name: Copying Alert Rules Configuration
+    ansible.builtin.copy:
+      src: /home/user/docs/ansible/confs/first_rules.yml
+      dest: /etc/prometheus/first_rules.yml
+
+  - name: Enabling Prometheus Service
+    command: /usr/bin/systemctl enable --now prometheus
+
+  - name: Enable Prometheus Alert Manager Service
+    command: /usr/bin/systemctl enable --now prometheus-alertmanager
+
+  - name: Installing nginx (apt)
+    ansible.builtin.apt:
+      pkg:
+      - nginx
+
+  - name: Copying Nginx Grafana Configuration
+    ansible.builtin.copy:
+      src: /home/user/docs/ansible/confs/grafana.conf
+      dest: /etc/nginx/sites-available/grafana
+
+  - name: Unlink Nginx Default Config
+    command: /usr/bin/unlink /etc/nginx/sites-enabled/default
+
+  - name: Link Nginx Grafana Configuration
+    command: /usr/bin/ln -s /etc/nginx/sites-available/grafana /etc/nginx/sites-enabled/

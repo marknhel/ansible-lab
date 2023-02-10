@@ -1,0 +1,18 @@
+---
+- hosts: webservers
+  become: yes
+  tasks:
+
+    #  - name: Copy tutorials service configuration
+    #    ansible.builtin.copy:
+    #      src: /home/user/docs/ansible/confs/tutorials.service
+    #      dest: /etc/systemd/system/tutorials.service
+    #
+    #  - name: Enable tutorials as a systemd service
+    #    ansible.builtin.systemd:
+    #      name: tutorials
+    #      enabled: true
+    #      state: started
+
+  - name: Set the firewall rules for tutorials
+    command: /usr/sbin/iptables -A TCP -s 10.10.0.31/32 -p tcp -m tcp --dport 8000 -j ACCEPT

@@ -1,0 +1,12 @@
+[Unit]
+Description=My Tutorials Django App
+After=network.target
+
+[Service]
+User=ubuntu
+WorkingDirectory=/home/ubuntu/django-documentation/tutorials
+ExecStart=/usr/bin/python3 manage.py runserver 0:8000
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
