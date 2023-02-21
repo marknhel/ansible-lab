@@ -1,0 +1,6 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: Enable all wireguard interfaces
+    command: /usr/bin/systemctl restart wg-quick@wg0
